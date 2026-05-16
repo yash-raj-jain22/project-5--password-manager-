@@ -20,7 +20,7 @@ function Manager() {
         <>
             <div className="absolute top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]"></div>
 
-            <div className='my-8 container mx-auto w-5xl bg-cyan-200 rounded p-0.5'>
+            <div className='my-8 container mx-auto max-w-5xl min-w-fit bg-cyan-200 rounded p-0.5'>
 
                 <div className="text-white flex flex-col gap-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded">
 
