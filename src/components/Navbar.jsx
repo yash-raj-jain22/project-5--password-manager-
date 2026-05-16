@@ -8,7 +8,6 @@ function Navbar() {
                 <ul className='flex items-center gap-6 text-sm md:text-base font-medium'>
                     <li className='cursor-pointer px-3 py-1 rounded-md transition-all duration-200 hover:bg-gray-700 hover:text-cyan-300'>Home</li>
                     <li className='cursor-pointer px-3 py-1 rounded-md transition-all duration-200 hover:bg-gray-700 hover:text-cyan-300'>About</li>
-                    <li className='cursor-pointer px-3 py-1 rounded-md transition-all duration-200 hover:bg-gray-700 hover:text-cyan-300'>Contact</li>
                 </ul>
             </div>
         </nav>
