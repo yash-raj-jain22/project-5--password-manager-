@@ -6,11 +6,11 @@ function Manager() {
     const TogglePass = useRef();
     const ShowPassword = () => {
         if (TogglePass.current.type == "password") {
-            ToggleEye.current.src = "src/assets/hide_pass.svg";
+            ToggleEye.current.src = "public/hide_pass.svg";
             TogglePass.current.type = "text";
             ToggleEye.current.alt = "Hide Password";
         } else {
-            ToggleEye.current.src = "src/assets/show_pass.svg";
+            ToggleEye.current.src = "public/show_pass.svg";
             TogglePass.current.type = "password";
             ToggleEye.current.alt = "Show Password";
         }
@@ -43,7 +43,7 @@ function Manager() {
                             <input ref={TogglePass} className='w-full px-3 py-2.5 rounded-4xl bg-cyan-50 focus:bg-white text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-300' type="password" name="" id="" placeholder='Enter Password' />
 
                             <span className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700 transition-colors duration-200' title="Show or Hide Password" onClick={ShowPassword} >
-                                <img ref={ToggleEye} src="src/assets/show_pass.svg" alt="Show Password" />
+                                <img ref={ToggleEye} src="public/show_pass.svg" alt="Show Password" />
                             </span>
 
                         </div>
