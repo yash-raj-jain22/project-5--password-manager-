@@ -10,7 +10,7 @@ function Navbar() {
                     <li className='cursor-pointer px-3 py-1 rounded-md transition-all duration-200 hover:bg-gray-700 hover:text-cyan-300'>About</li>
                 </ul>
                 <div className="github flex items-center gap-2 cursor-pointer px-4 py-2 rounded-full transition-all duration-200 bg-cyan-900 hover:bg-cyan-600 hover:text-white focus:outline-none">
-                    <img src="/public/icons/github.svg" alt="GitHub" className="w-5 h-5" />
+                    <img src="/icons/github.svg" alt="GitHub" className="w-5 h-5" />
                     <span className="text-sm font-medium">Github</span>
                 </div>
             </div>

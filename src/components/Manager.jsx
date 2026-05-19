@@ -166,7 +166,7 @@ function Manager() {
                         <div className='border-l border-cyan-500 h-10'></div>
                         <div className="username text-center w-1/3">Username</div>
                         <div className='border-l border-cyan-500 h-10'></div>
-                        <div className='border-1 m-2 rounded p-1'><img className='invert' src="/public/icons/plus.svg" alt="" /></div>
+                        <div className='border-1 m-2 rounded p-1'><img className='invert' src="/icons/plus.svg" alt="" /></div>
                     </div>
                 </div>
             </div>
@@ -200,7 +200,7 @@ function Manager() {
                                                 <span className='md:hidden font-semibold text-cyan-400'>Site: </span>
                                                 <a href={item.site} target="_blank" rel="noopener noreferrer" className="truncate">{item.site}</a>
                                                 <button onClick={() => HandleCopy(item.site)} className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0" title="Copy site">
-                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/copy.svg" alt="Copy" />
+                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/icons/copy.svg" alt="Copy" />
                                                 </button>
                                             </div>
 
@@ -212,7 +212,7 @@ function Manager() {
                                                 <span className='md:hidden font-semibold text-cyan-400'>User: </span>
                                                 {item.username}
                                                 <button onClick={() => HandleCopy(item.username)} className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0" title="Copy username">
-                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/copy.svg" alt="Copy" />
+                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/icons/copy.svg" alt="Copy" />
                                                 </button>
                                             </div>
 
@@ -222,9 +222,9 @@ function Manager() {
                                             {/* Expand/Collapse button - toggles password details view */}
                                             <div onClick={() => ToggleDropdown(index)} className='border-1 m-2 rounded p-1 cursor-pointer hover:bg-cyan-500/20 border-cyan-400/30 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0 w-7 h-7 flex justify-center items-center' title="View Password">
                                                 {Opendropdown === index ? (
-                                                    <img className='invert' src="/public/icons/minus.svg" alt="" />
+                                                    <img className='invert' src="/icons/minus.svg" alt="" />
                                                 ) : (
-                                                    <img className='invert' src="/public/icons/plus.svg" alt="" />
+                                                    <img className='invert' src="/icons/plus.svg" alt="" />
                                                 )}
                                             </div>
                                         </div>
@@ -240,7 +240,7 @@ function Manager() {
                                                             <div className='flex gap-2.5 justify-center items-center'>
                                                                 <div className='break-all'>{(item.password)}</div>
                                                                 <button onClick={() => HandleCopy(item.password)} className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0" title="Copy site">
-                                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/copy.svg" alt="Copy" />
+                                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/icons/copy.svg" alt="Copy" />
                                                                 </button>
                                                             </div>
                                                         ) : (
@@ -257,13 +257,13 @@ function Manager() {
 
                                                         {/* Edit button */}
                                                         <button onClick={() => HandleEdit(index)} className="edit group cursor-pointer inline-flex items-center justify-center gap-1 md:gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-2 md:px-4 py-2 text-xs md:text-sm font-semibold text-cyan-100 shadow-lg shadow-cyan-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-cyan-400/20 hover:border-cyan-300/50 hover:text-white hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
-                                                            <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/edit.svg" alt="Edit" />
+                                                            <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/icons/edit.svg" alt="Edit" />
                                                             <span className='hidden sm:inline'>Edit</span>
                                                         </button>
 
                                                         {/* Delete button */}
                                                         <button onClick={() => HandleDelete(index)} className='remove group cursor-pointer inline-flex items-center justify-center gap-1 md:gap-2 rounded-full border border-red-400/30 bg-red-500/10 px-2 md:px-4 py-2 text-xs md:text-sm font-semibold text-red-100 shadow-lg shadow-red-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-400/20 hover:border-red-300/50 hover:text-white hover:shadow-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-300/60'>
-                                                            <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/delete.svg" alt="Delete" />
+                                                            <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/icons/delete.svg" alt="Delete" />
                                                             <span className='hidden sm:inline'>Delete</span>
                                                         </button>
                                                     </div>
