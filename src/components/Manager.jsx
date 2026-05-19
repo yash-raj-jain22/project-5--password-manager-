@@ -180,10 +180,10 @@ function Manager() {
                                 return (
                                     <>
                                         {/* Password item row - responsive layout (stacks on mobile, flex on desktop) */}
-                                        <div onClick={() => ToggleDropdown(index)} className="item my-2 bg-blend-darken flex flex-col md:flex-row md:justify-between md:items-center hover:bg-gray-700/50 rounded transition-all duration-200 rounded-md p-2 md:p-4 cursor-pointer gap-3 md:gap-0">
+                                        <div onClick={() => ToggleDropdown(index)} className="item my-2 bg-blend-darken flex flex-col md:flex-row md:justify-between md:items-center hover:bg-gray-700/50 rounded transition-all duration-200 rounded-md py-2 md:py-4 cursor-pointer gap-3 md:gap-0">
 
                                             {/* S.no column - Index of the password entry */}
-                                            <div className="s-no text-sm md:text-base text-center md:text-left w-full md:w-1/3">
+                                            <div className="pl-5 s-no text-sm md:text-base text-center md:text-left w-full md:w-1/3">
                                                 <span className='md:hidden font-semibold text-cyan-400'>No. </span>
                                                 {index + 1}
                                             </div>
