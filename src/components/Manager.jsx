@@ -40,11 +40,11 @@ function Manager() {
      */
     const ShowPassword = () => {
         if (TogglePass.current.type == "password") {
-            ToggleEye.current.src = "public/icons/hide_pass.svg";
+            ToggleEye.current.src = "/icons/hide_pass.svg";
             TogglePass.current.type = "text";
             ToggleEye.current.alt = "Hide Password";
         } else {
-            ToggleEye.current.src = "public/icons/show_pass.svg";
+            ToggleEye.current.src = "/icons/show_pass.svg";
             TogglePass.current.type = "password";
             ToggleEye.current.alt = "Show Password";
         }
@@ -138,7 +138,7 @@ function Manager() {
 
                             {/* Eye icon to toggle password visibility */}
                             <span className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700 transition-colors duration-200' title="Show or Hide Password" onClick={ShowPassword} >
-                                <img ref={ToggleEye} src="public/icons/show_pass.svg" alt="Show Password" />
+                                <img ref={ToggleEye} src="/icons/show_pass.svg" alt="Show Password" />
                             </span>
                         </div>
                     </div>
