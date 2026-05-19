@@ -1,5 +1,10 @@
 import React from 'react'
 
+/*
+ * Footer
+ * Simple site footer displayed at the bottom of pages. Contains branding and copyright.
+ * Kept intentionally minimal to avoid distraction from the app's primary UI.
+ */
 function Footer() {
     return (
         <div>

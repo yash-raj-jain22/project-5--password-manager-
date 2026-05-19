@@ -1,5 +1,7 @@
 import React from 'react'
 import { useRef, useState, useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * Manager Component
@@ -61,30 +63,78 @@ function Manager() {
     /**
      * Save new password to the password array and localStorage
      */
-    const SavePassword = () => {
-        setPasswordArray([...PasswordArray, form])
-        localStorage.setItem("Passwords", JSON.stringify([...PasswordArray, form]))
-        console.log([...PasswordArray, form])
-        console.log(form);
+    const SavePassword = (e) => {
+        e.preventDefault();
+        if (form.site === "" || form.username === "" || form.password === "") {
+            toast.error('Please fill in all fields!', {
+                position: "top-right",
+            });
+            return;
+        }
+        if (form.site.startsWith("http://") === false && form.site.startsWith("https://") === false) {
+            toast.error('Please enter a valid URL starting with http:// or https://', {
+                position: "top-right",
+            });
+            return;
+        }
+        if (form.site.split(".").length < 2) {
+            toast.error('Please enter a valid URL with a domain name', {
+                position: "top-right",
+            });
+            return;
+        }
+        setPasswordArray([...PasswordArray, { ...form, id: uuidv4() }])
+        localStorage.setItem("Passwords", JSON.stringify([...PasswordArray, { ...form, id: uuidv4() }]))
+        setform({ site: "", username: "", password: "" })
+        toast.success('Password saved successfully!', {
+            position: "top-right",
+        });
+
     }
 
     const HandleCopy = (text) => {
         navigator.clipboard.writeText(text)
+        toast('Copied to Clipboard!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     /**
      * Delete password entry (to be implemented)
      * @param {number} params - Index of the password to delete
      */
-    const HandleDelete = (params) => {
-        // localStorage.removeItem("Passwords", PasswordArray.)
+    const HandleDelete = (id) => {
+        if (window.confirm("Are you sure you want to delete this password? This action cannot be undone.")) {
+            setPasswordArray(PasswordArray.filter((item) => item.id !== id))
+            localStorage.setItem("Passwords", JSON.stringify(PasswordArray.filter((item) => item.id !== id)))
+            toast.success('Password deleted successfully!', {
+                position: "top-right",
+            });
+        }
+        else {
+            toast.info('Password deletion cancelled.', {
+                position: "top-right",
+            });
+        }
     }
 
     /**
      * Edit password entry (to be implemented)
      * @param {number} params - Index of the password to edit
      */
-    const HandleEdit = (params) => {
+    const HandleEdit = (id) => {
+        setform(PasswordArray.find((item) => item.id === id))
+        setPasswordArray(PasswordArray.filter((item) => item.id !== id))
+        toast.info('Password loaded into form for editing. Make changes and click "Add Password" to save.', {
+            position: "top-right",
+        });
     }
 
     /**
@@ -107,6 +157,18 @@ function Manager() {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
             {/* Animated gradient background pattern */}
             <div className="fixed inset-0 z-[-2] bg-black bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]" />
 
@@ -126,30 +188,32 @@ function Manager() {
                         <span>Your own password manager</span>
                     </div>
 
-                    {/* Website URL input field */}
-                    <input value={form.site} onChange={HandleChange} className='px-3 py-2.5 rounded-4xl bg-cyan-50 focus:bg-white text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-300 ' type="text" name="site" id='' placeholder='Enter website URL' />
+                    <form className='text-white flex flex-col gap-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded' onSubmit={SavePassword}>
+                        {/* Website URL input field */}
+                        <input value={form.site} onChange={HandleChange} className='px-3 py-2.5 rounded-4xl bg-cyan-50 focus:bg-white text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-300 ' type="text" name="site" id='' placeholder='Enter website URL' />
+                        {/* Username and password input fields */}
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <input value={form.username} onChange={HandleChange} className='w-full px-3 py-2.5 rounded-4xl bg-cyan-50 focus:bg-white text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-300' type="text" name="username" id="" placeholder='Enter Username' />
+                            <div className='w-full md:w-2/3 relative'>
+                                {/* Password input with show/hide toggle */}
+                                <input value={form.password} onChange={HandleChange} ref={TogglePass} className='w-full px-3 py-2.5 rounded-4xl bg-cyan-50 focus:bg-white text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-300' type="password" name="password" id="" placeholder='Enter Password' />
 
-                    {/* Username and password input fields */}
-                    <div className="flex gap-4">
-                        <input value={form.username} onChange={HandleChange} className='w-full px-3 py-2.5 rounded-4xl bg-cyan-50 focus:bg-white text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-300' type="text" name="username" id="" placeholder='Enter Username' />
-                        <div className='w-2/3 relative'>
-                            {/* Password input with show/hide toggle */}
-                            <input value={form.password} onChange={HandleChange} ref={TogglePass} className='w-full px-3 py-2.5 rounded-4xl bg-cyan-50 focus:bg-white text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-300' type="password" name="password" id="" placeholder='Enter Password' />
-
-                            {/* Eye icon to toggle password visibility */}
-                            <span className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700 transition-colors duration-200' title="Show or Hide Password" onClick={ShowPassword} >
-                                <img ref={ToggleEye} src="/icons/show_pass.svg" alt="Show Password" />
-                            </span>
+                                {/* Eye icon to toggle password visibility */}
+                                <span className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700 transition-colors duration-200' title="Show or Hide Password" onClick={ShowPassword} >
+                                    <img ref={ToggleEye} src="/icons/show_pass.svg" alt="Show Password" />
+                                </span>
+                            </div>
                         </div>
-                    </div>
 
-                    {/* Save password button */}
-                    <div className="button flex justify-center">
-                        <button className='flex justify-center gap-3 min-w-2/5 max-w-4/5 hover:cursor-pointer  bg-gradient-to-r from-cyan-500 to-cyan-600 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-2 px-4 rounded rounded-4xl' type="submit" onClick={SavePassword}>
-                            Add Password
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-copy-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18.333 6a3.667 3.667 0 0 1 3.667 3.667v8.666a3.667 3.667 0 0 1 -3.667 3.667h-8.666a3.667 3.667 0 0 1 -3.667 -3.667v-8.666a3.667 3.667 0 0 1 3.667 -3.667zm-4.333 4a1 1 0 0 0 -1 1v2h-2a1 1 0 0 0 -.993 .883l-.007 .117a1 1 0 0 0 1 1h2v2a1 1 0 0 0 .883 .993l.117 .007a1 1 0 0 0 1 -1v-2h2a1 1 0 0 0 .993 -.883l.007 -.117a1 1 0 0 0 -1 -1h-2v-2a1 1 0 0 0 -.883 -.993zm1 -8c1.094 0 1.828 .533 2.374 1.514a1 1 0 1 1 -1.748 .972c-.221 -.398 -.342 -.486 -.626 -.486h-10c-.548 0 -1 .452 -1 1v9.998c0 .32 .154 .618 .407 .805l.1 .065a1 1 0 1 1 -.99 1.738a3 3 0 0 1 -1.517 -2.606v-10c0 -1.652 1.348 -3 3 -3z" /></svg>
-                        </button>
-                    </div>
+                        {/* Save password button */}
+                        <div className="button flex justify-center">
+                            <button className='flex justify-center gap-3 min-w-2/5 max-w-10/12 hover:cursor-pointer  bg-gradient-to-r from-cyan-500 to-cyan-600 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-2 px-4 rounded rounded-4xl' type="submit" >
+                                Add Password
+                                <img className='invert' src="/icons/add_pass.svg" alt="" />
+
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -184,13 +248,14 @@ function Manager() {
                                 return (
                                     <>
                                         {/* Password item row - responsive layout (stacks on mobile, flex on desktop) */}
-                                        <div className="item my-2 bg-blend-darken flex flex-col md:flex-row md:justify-between md:items-center hover:bg-gray-700/50 rounded transition-all duration-200 rounded-md py-2 md:py-4  gap-3 md:gap-0">
+                                        <div className="item my-2 bg-blend-darken flex flex-col md:flex-row md:justify-between md:items-center bg-gray-700/20 hover:bg-gray-700/50 rounded transition-all duration-200 rounded-2xl p-2 md:py-4 md:px-0 gap-3 md:gap-0">
 
                                             {/* S.no column - Index of the password entry */}
                                             <div className="pl-5 s-no text-sm md:text-base text-center md:text-left w-full md:w-1/3">
                                                 <span className='md:hidden font-semibold text-cyan-400'>No. </span>
                                                 {index + 1}
                                             </div>
+                                            <div className="seperator-mobile h-0.5 bg-cyan-400 w-1/5 ml-4 -mt-2 self-center md:hidden"></div>
 
                                             {/* Divider - hidden on mobile */}
                                             <div className='hidden md:block border-l border-cyan-500/30 h-10'></div>
@@ -220,12 +285,24 @@ function Manager() {
                                             <div className='hidden md:block border-l border-cyan-500/30 h-10'></div>
 
                                             {/* Expand/Collapse button - toggles password details view */}
-                                            <div onClick={() => ToggleDropdown(index)} className='border-1 m-2 rounded p-1 cursor-pointer hover:bg-cyan-500/20 border-cyan-400/30 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0 w-7 h-7 flex justify-center items-center' title="View Password">
+                                            <div className='flex justify-end md:justify-center items-center w-full md:w-auto'>
                                                 {Opendropdown === index ? (
-                                                    <img className='invert' src="/icons/minus.svg" alt="" />
+                                                    <>
+                                                        <div className='md:hidden' >collapse</div>
+                                                    </>
+
                                                 ) : (
-                                                    <img className='invert' src="/icons/plus.svg" alt="" />
+                                                    <>
+                                                        <div className='md:hidden'>expand</div>
+                                                    </>
                                                 )}
+                                                <div onClick={() => ToggleDropdown(index)} className='border-1 m-2 rounded p-1 cursor-pointer hover:bg-cyan-500/20 border-cyan-400/30 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0 w-7 h-7 flex justify-center items-center' title="View Password">
+                                                    {Opendropdown === index ? (
+                                                        <img className='invert' src="/icons/minus.svg" alt="" />
+                                                    ) : (
+                                                        <img className='invert' src="/icons/plus.svg" alt="" />
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
 
@@ -256,13 +333,13 @@ function Manager() {
                                                         </button>
 
                                                         {/* Edit button */}
-                                                        <button onClick={() => HandleEdit(index)} className="edit group cursor-pointer inline-flex items-center justify-center gap-1 md:gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-2 md:px-4 py-2 text-xs md:text-sm font-semibold text-cyan-100 shadow-lg shadow-cyan-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-cyan-400/20 hover:border-cyan-300/50 hover:text-white hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
+                                                        <button onClick={() => HandleEdit(item.id)} className="edit group cursor-pointer inline-flex items-center justify-center gap-1 md:gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-2 md:px-4 py-2 text-xs md:text-sm font-semibold text-cyan-100 shadow-lg shadow-cyan-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-cyan-400/20 hover:border-cyan-300/50 hover:text-white hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
                                                             <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/icons/edit.svg" alt="Edit" />
                                                             <span className='hidden sm:inline'>Edit</span>
                                                         </button>
 
                                                         {/* Delete button */}
-                                                        <button onClick={() => HandleDelete(index)} className='remove group cursor-pointer inline-flex items-center justify-center gap-1 md:gap-2 rounded-full border border-red-400/30 bg-red-500/10 px-2 md:px-4 py-2 text-xs md:text-sm font-semibold text-red-100 shadow-lg shadow-red-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-400/20 hover:border-red-300/50 hover:text-white hover:shadow-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-300/60'>
+                                                        <button onClick={() => HandleDelete(item.id)} className='remove group cursor-pointer inline-flex items-center justify-center gap-1 md:gap-2 rounded-full border border-red-400/30 bg-red-500/10 px-2 md:px-4 py-2 text-xs md:text-sm font-semibold text-red-100 shadow-lg shadow-red-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-400/20 hover:border-red-300/50 hover:text-white hover:shadow-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-300/60'>
                                                             <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/icons/delete.svg" alt="Delete" />
                                                             <span className='hidden sm:inline'>Delete</span>
                                                         </button>
