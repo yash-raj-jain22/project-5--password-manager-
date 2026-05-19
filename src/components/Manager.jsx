@@ -6,6 +6,8 @@ function Manager() {
     const TogglePass = useRef();
     const [form, setform] = useState({ site: "", username: "", password: "" })
     const [PasswordArray, setPasswordArray] = useState([])
+    const [Opendropdown, setOpendropdown] = useState(null)
+    const [ShowDropdownPassword, setShowDropdownPassword] = useState(null)
 
 
     useEffect(() => {
@@ -48,6 +50,13 @@ function Manager() {
     const HandleEdit = (params) => {
     }
 
+    const ToggleDropdown = (index) => {
+        setOpendropdown(index === Opendropdown ? null : index);
+    }
+
+    const HandleShowDropdownPassword = (index) => {
+        setShowDropdownPassword(index === ShowDropdownPassword ? null : index);
+    }
 
 
 
@@ -100,12 +109,16 @@ function Manager() {
 
             {/* Heading container */}
             <div className='mt-15 my-3 container mx-auto max-w-15/16 md:max-w-5xl min-w-fit border-3 border-cyan-200 rounded-tl-xl rounded-tr-xl '>
-                <div className="text-white flex flex-col gap-4  p-6 rounded bg-gray-800/40  ">
-                    <div className="bg-blend-darken  flex justify-between">
-                        <div className="s-no text-center w-1/4">S.no</div>
-                        <div className="site text-center w-1/4">Site name</div>
-                        <div className="username text-center w-1/4">Username</div>
-                        <div className="password text-center w-1/4">Password</div>
+                <div className="text-white flex flex-col gap-4 py-6 md:px-6 rounded bg-gray-800/40  ">
+                    <div className="bg-blend-darken flex justify-between items-center">
+                        <div className="s-no text-center w-1/3">S.no</div>
+                        <div className='border-1 border-cyan-500 h-10'></div>
+                        <div className="site text-center w-1/3">Site name</div>
+                        <div className='border-l border-cyan-500 h-10'></div>
+                        <div className="username text-center w-1/3">Username</div>
+                        <div className='border-l border-cyan-500 h-10'></div>
+                        <div className='border-1 m-2 rounded p-1'><img className='invert' src="/public/icons/plus.svg" alt="" /></div>
+
                         {/* <div className="btns flex gap-4">
                             <div className="edit">Edit</div>
                             <div className='remove'>Delete</div>
@@ -130,23 +143,66 @@ function Manager() {
                             {PasswordArray.map((item, index) => {
                                 return (
                                     <>
-                                        <div className="my-2 item bg-blend-darken  flex justify-between">
+                                        <div onClick={() => ToggleDropdown(index)} className=" item my-2 bg-blend-darken  flex justify-between items-center hover:bg-gray-700/50 rounded transition-all duration-200 rounded-md p-2 cursor-pointer">
 
-                                            <div className="s-no text-center w-1/4">{index + 1}</div>
-                                            <div className="site text-center w-1/4"><a href={item.site} target="_blank" rel="noopener noreferrer">{item.site}</a></div>
-                                            <div className="username text-center w-1/4">{item.username}</div>
-                                            <div className="password text-center w-1/4">{item.password}</div>
-                                            {/* <div className="btns flex gap-4">
-                                                <button onClick={() => HandleEdit(index)} className="edit group cursor-pointer inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-lg shadow-cyan-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-cyan-400/20 hover:border-cyan-300/50 hover:text-white hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
-                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/edit.svg" alt="Edit" />
-                                                    Edit
+                                            <div className="s-no text-center w-1/3">{index + 1}</div>
+                                            <div className='border-l border-cyan-500/30 h-10'></div>
+
+                                            <div className="site flex gap-2 justify-center items-center  text-center w-1/3 ">
+                                                <a href={item.site} target="_blank" rel="noopener noreferrer">{item.site}</a>
+                                                <button className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20" title="Copy site">
+                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/copy.svg" alt="Copy" />
                                                 </button>
-                                                <button onClick={() => HandleDelete(index)} className='remove group cursor-pointer inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-100 shadow-lg shadow-red-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-400/20 hover:border-red-300/50 hover:text-white hover:shadow-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-300/60'>
-                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/delete.svg" alt="Delete" />
-                                                    Delete
-                                                </button>
-                                            </div> */}
+                                            </div>
+
+                                            <div className='border-l border-cyan-500/30 h-10'></div>
+
+                                            <div className="username flex gap-2 justify-center items-center text-center w-1/3">{item.username}<button className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20" title="Copy site">
+                                                <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/copy.svg" alt="Copy" />
+                                            </button></div>
+
+                                            <div className='border-l border-cyan-500/30 h-10'></div>
+
+                                            <div onClick={() => ToggleDropdown(index)} className='border-1 m-2 rounded p-1 cursor-pointer hover:bg-cyan-500/20 border-cyan-400/30 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20' title="View Password">
+                                                {Opendropdown === index ? (
+                                                    <img className='invert' src="/public/icons/minus.svg" alt="" />
+                                                ) : (
+                                                    <img className='invert' src="/public/icons/plus.svg" alt="" />
+                                                )}
+                                            </div>
+
+
                                         </div>
+
+                                        {Opendropdown === index && (
+                                            <>
+
+                                                <div className=" item my-2 bg-blend-darken bg-gray-900 p-6 rounded flex flex-col md:flex-row justify-center items-center">
+                                                    <div className="password flex gap-2 items-center text-center w-full md:w-1/3">
+                                                        <div>Password:</div>
+                                                        {ShowDropdownPassword === index ? (<div>{(item.password)}</div>
+                                                        ) : (<div>{"*".repeat(item.password.length)}</div>)}
+                                                    </div>
+
+                                                    <div className="btns flex gap-4 w-full md:w-2/3 justify-between md:justify-end mt-4 md:mt-0">
+                                                        <div>
+                                                            <button onClick={() => (HandleShowDropdownPassword(index))} className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-green-500/10 hover:bg-green-500/20 border border-green-400/30 hover:border-green-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-green-500/20" title={ShowDropdownPassword === index ? "Hide password" : "Show password"}>
+                                                                {ShowDropdownPassword === index ? "Hide password" : "Show password"}
+                                                            </button>
+                                                        </div>
+                                                        <button onClick={() => HandleEdit(index)} className="edit group cursor-pointer inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-lg shadow-cyan-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-cyan-400/20 hover:border-cyan-300/50 hover:text-white hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
+                                                            <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/edit.svg" alt="Edit" />
+                                                            Edit
+                                                        </button>
+                                                        <button onClick={() => HandleDelete(index)} className='remove group cursor-pointer inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-100 shadow-lg shadow-red-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-400/20 hover:border-red-300/50 hover:text-white hover:shadow-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-300/60'>
+                                                            <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/delete.svg" alt="Delete" />
+                                                            Delete
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </>
+                                        )}
                                         <div className="my-4 seperator border-b border-gray-600"></div>
                                     </>
                                 )
