@@ -68,6 +68,10 @@ function Manager() {
         console.log(form);
     }
 
+    const HandleCopy = (text) => {
+        navigator.clipboard.writeText(text)
+    }
+
     /**
      * Delete password entry (to be implemented)
      * @param {number} params - Index of the password to delete
@@ -180,7 +184,7 @@ function Manager() {
                                 return (
                                     <>
                                         {/* Password item row - responsive layout (stacks on mobile, flex on desktop) */}
-                                        <div onClick={() => ToggleDropdown(index)} className="item my-2 bg-blend-darken flex flex-col md:flex-row md:justify-between md:items-center hover:bg-gray-700/50 rounded transition-all duration-200 rounded-md py-2 md:py-4 cursor-pointer gap-3 md:gap-0">
+                                        <div className="item my-2 bg-blend-darken flex flex-col md:flex-row md:justify-between md:items-center hover:bg-gray-700/50 rounded transition-all duration-200 rounded-md py-2 md:py-4  gap-3 md:gap-0">
 
                                             {/* S.no column - Index of the password entry */}
                                             <div className="pl-5 s-no text-sm md:text-base text-center md:text-left w-full md:w-1/3">
@@ -195,7 +199,7 @@ function Manager() {
                                             <div className="site flex gap-2 justify-start md:justify-center items-center text-sm md:text-base w-full md:w-1/3">
                                                 <span className='md:hidden font-semibold text-cyan-400'>Site: </span>
                                                 <a href={item.site} target="_blank" rel="noopener noreferrer" className="truncate">{item.site}</a>
-                                                <button className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0" title="Copy site">
+                                                <button onClick={() => HandleCopy(item.site)} className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0" title="Copy site">
                                                     <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/copy.svg" alt="Copy" />
                                                 </button>
                                             </div>
@@ -207,7 +211,7 @@ function Manager() {
                                             <div className="username flex gap-2 justify-start md:justify-center items-center text-sm md:text-base w-full md:w-1/3">
                                                 <span className='md:hidden font-semibold text-cyan-400'>User: </span>
                                                 {item.username}
-                                                <button className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0" title="Copy username">
+                                                <button onClick={() => HandleCopy(item.username)} className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0" title="Copy username">
                                                     <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/copy.svg" alt="Copy" />
                                                 </button>
                                             </div>
@@ -233,7 +237,12 @@ function Manager() {
                                                     <div className="password flex flex-col md:flex-row gap-2 md:gap-3 items-start md:items-center text-sm md:text-base w-full md:w-1/3">
                                                         <span className='font-semibold text-cyan-400 flex-shrink-0'>Password:</span>
                                                         {ShowDropdownPassword === index ? (
-                                                            <div className='break-all'>{(item.password)}</div>
+                                                            <div className='flex gap-2.5 justify-center items-center'>
+                                                                <div className='break-all'>{(item.password)}</div>
+                                                                <button onClick={() => HandleCopy(item.password)} className="group cursor-pointer inline-flex items-center justify-center p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/30 hover:border-cyan-300/50 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 flex-shrink-0" title="Copy site">
+                                                                    <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-80 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/copy.svg" alt="Copy" />
+                                                                </button>
+                                                            </div>
                                                         ) : (
                                                             <div className='break-all'>{"*".repeat(item.password.length)}</div>
                                                         )}
