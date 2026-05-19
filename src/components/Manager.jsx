@@ -43,7 +43,9 @@ function Manager() {
     }
 
     const HandleDelete = (params) => {
-
+        // localStorage.removeItem("Passwords", PasswordArray.)
+    }
+    const HandleEdit = (params) => {
     }
 
 
@@ -100,14 +102,14 @@ function Manager() {
             <div className='mt-15 my-3 container mx-auto max-w-15/16 md:max-w-5xl min-w-fit border-3 border-cyan-200 rounded-tl-xl rounded-tr-xl '>
                 <div className="text-white flex flex-col gap-4  p-6 rounded bg-gray-800/40  ">
                     <div className="bg-blend-darken  flex justify-between">
-                        <div className="s-no">S.no</div>
-                        <div className="site">Site name</div>
-                        <div className="username">Username</div>
-                        <div className="password">Password</div>
-                        <div className="btns flex gap-4">
+                        <div className="s-no text-center w-1/4">S.no</div>
+                        <div className="site text-center w-1/4">Site name</div>
+                        <div className="username text-center w-1/4">Username</div>
+                        <div className="password text-center w-1/4">Password</div>
+                        {/* <div className="btns flex gap-4">
                             <div className="edit">Edit</div>
                             <div className='remove'>Delete</div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -130,12 +132,12 @@ function Manager() {
                                     <>
                                         <div className="my-2 item bg-blend-darken  flex justify-between">
 
-                                            <div className="s-no">{index + 1}</div>
-                                            <div className="site">{item.site}</div>
-                                            <div className="username">{item.username}</div>
-                                            <div className="password">{item.password}</div>
-                                            <div className="btns flex gap-4">
-                                                <button className="edit group cursor-pointer inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-lg shadow-cyan-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-cyan-400/20 hover:border-cyan-300/50 hover:text-white hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
+                                            <div className="s-no text-center w-1/4">{index + 1}</div>
+                                            <div className="site text-center w-1/4"><a href={item.site} target="_blank" rel="noopener noreferrer">{item.site}</a></div>
+                                            <div className="username text-center w-1/4">{item.username}</div>
+                                            <div className="password text-center w-1/4">{item.password}</div>
+                                            {/* <div className="btns flex gap-4">
+                                                <button onClick={() => HandleEdit(index)} className="edit group cursor-pointer inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-lg shadow-cyan-950/20 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-cyan-400/20 hover:border-cyan-300/50 hover:text-white hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
                                                     <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/edit.svg" alt="Edit" />
                                                     Edit
                                                 </button>
@@ -143,7 +145,7 @@ function Manager() {
                                                     <img className='h-4 w-4 shrink-0 brightness-0 invert opacity-90 transition-transform duration-200 group-hover:scale-110 group-hover:opacity-100' src="/public/icons/delete.svg" alt="Delete" />
                                                     Delete
                                                 </button>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="my-4 seperator border-b border-gray-600"></div>
                                     </>
