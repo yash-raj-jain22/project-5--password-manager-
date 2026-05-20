@@ -1,7 +1,8 @@
-![Project Screenshot](public/screenshot.png)
+## DEMO - https://keyvault-by-yash.vercel.app/
+
+[![Demo](public/screenshot.png)](https://keyvault-by-yash.vercel.app/)
 
 # Password Manager — Local Storage Variant
-
 
 A focused client-side password manager demo built with React + Vite. This repository implements a small credential manager that demonstrates common UI patterns (create, read, update, delete), search/filter, notifications, and simple persistence using the browser `localStorage`.
 
