@@ -16,16 +16,20 @@ function Navbar() {
 
                     {/* Primary navigation links (visible inline on larger screens) */}
                     <ul className='flex flex-wrap items-center justify-center gap-2 text-sm font-medium sm:justify-end sm:gap-6 md:text-base '>
+                        <a href="/">
                         <li className='cursor-pointer px-3 py-1 rounded-md transition-all duration-200 hover:bg-gray-700 hover:text-cyan-300'>Home</li>
-                        <li className='cursor-pointer px-3 py-1 rounded-md transition-all duration-200 hover:bg-gray-700 hover:text-cyan-300'>About</li>
+                        </a>
+                        
                     </ul>
                 </div>
 
                 {/* GitHub CTA - visually prominent button linking to source */}
-                <div className="github flex items-center gap-2 cursor-pointer px-4 py-2 rounded-full transition-all duration-200 bg-cyan-900 hover:bg-cyan-600 hover:text-white focus:outline-none justify-center">
-                    <img src="/icons/github.svg" alt="GitHub" className="w-5 h-5" />
-                    <span className="text-sm font-medium">Github</span>
-                </div>
+                <a href="https://github.com/yash-raj-jain22/KeyVault-Your_own_password_manager-localstorage_varient">
+                    <div className="github flex items-center gap-2 cursor-pointer px-4 py-2 rounded-full transition-all duration-200 bg-cyan-900 hover:bg-cyan-600 hover:text-white focus:outline-none justify-center">
+                        <img src="/icons/github.svg" alt="GitHub" className="w-5 h-5" />
+                        <span className="text-sm font-medium">Github</span>
+                    </div>
+                </a>
             </div>
         </nav>
     )
